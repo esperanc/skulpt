@@ -280,13 +280,15 @@ var $builtinmodule = function (name) {
     mod.ERODE = new Sk.builtin.int_(17);
     mod.DILATE = new Sk.builtin.int_(18);
 
-    // Both key and keyCode will be equal to these values
-    mod.BACKSPACE = new Sk.builtin.int_( 8);
-    mod.TAB = new Sk.builtin.int_(9);
-    mod.ENTER = new Sk.builtin.int_(10);
-    mod.RETURN = new Sk.builtin.int_(13);
-    mod.ESC = new Sk.builtin.int_(27);
-    mod.DELETE = new Sk.builtin.int_(127);
+    // Non-graphical keyboard.key values
+    mod.BACKSPACE = new Sk.builtin.str(String.fromCharCode(8));
+    mod.TAB = new Sk.builtin.str(String.fromCharCode(9));
+    mod.ENTER = new Sk.builtin.str(String.fromCharCode(10));
+    mod.RETURN = new Sk.builtin.str(String.fromCharCode(13));
+    mod.ESC = new Sk.builtin.str(String.fromCharCode(27));
+    mod.DELETE = new Sk.builtin.str(String.fromCharCode(127));
+
+    // Value for keyboard.key when a non-ascii key is pressed 
     mod.CODED = new Sk.builtin.int_(0xffff);
 
     // p.key will be CODED and p.keyCode will be this value
@@ -1605,14 +1607,16 @@ var $builtinmodule = function (name) {
         $loc.__getattr__ = new Sk.builtin.func(function (self, key) {
 	    key = Sk.ffi.remapToJs(key);
             if (key === "key") {
-                return new Sk.builtin.str(mod.processing.key.toString());
+                return mod.processing.key.valueOf() == 65535 ? // Handle CODED differently
+                       mod.CODED :
+                       new Sk.builtin.str(mod.processing.key.toString());
             }
             else if (key === "keyCode") {
                 return Sk.builtin.assk$(mod.processing.keyCode);
             }
             else if (key === "keyPressed") {
-                return new Sk.builtin.str(mod.processing.keyPressed);
-            } // todo bool
+                return new Sk.builtin.bool(mod.processing.__keyPressed);
+            } 
         });
 
     };
