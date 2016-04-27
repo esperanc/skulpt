@@ -521,14 +521,14 @@ Sk.builtin.type.mroMerge_ = function (seqs) {
                 cand = seq[0];
                 //print("CAND", Sk.builtin.repr(cand).v);
                 OUTER:
-                    for (j = 0; j < seqs.length; ++j) {
-                        sseq = seqs[j];
-                        for (k = 1; k < sseq.length; ++k) {
-                            if (sseq[k] === cand) {
-                                break OUTER;
-                            }
+                for (j = 0; j < seqs.length; ++j) {
+                    sseq = seqs[j];
+                    for (k = 1; k < sseq.length; ++k) {
+                        if (sseq[k] === cand) {
+                            break OUTER;
                         }
                     }
+                }
 
                 // cand is not in any sequences' tail -> constraint-free
                 if (j === seqs.length) {

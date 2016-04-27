@@ -737,9 +737,11 @@ Sk.builtin.hash = function hash (value) {
     Sk.builtin.pyCheckArgs("hash", arguments, 1, 1);
 
     // Useless object to get compiler to allow check for __hash__ property
-    junk = {__hash__: function () {
-        return 0;
-    }};
+    junk = {
+        __hash__: function () {
+            return 0;
+        }   
+    };
 
     if (value instanceof Object) {
         if (Sk.builtin.checkNone(value.tp$hash)) {
