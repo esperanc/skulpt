@@ -1412,9 +1412,19 @@ var $builtinmodule = function (name) {
 
 
     // Transforms
-    mod.rotate = new Sk.builtin.func(function (rads) {
+    mod.rotate = new Sk.builtin.func(function (rads,x,y,z) {
+        if (typeof(x) === "undefined") {
+            x = 0;
+            y = 0;
+            z = 1;
+        }
+        else {
+            x = x.v;
+            y = y.v;
+            z = z.v;
+        }
         // rotation in radians
-        mod.processing.rotate(rads.v);
+        mod.processing.rotate(rads.v,x,y,z);
     });
 
     mod.rotateX = new Sk.builtin.func(function(rads) {
