@@ -1467,6 +1467,15 @@ var $builtinmodule = function (name) {
         mod.processing.translate(sx.v, sy, sz);
     });
 
+
+    mod.popStyle = new Sk.builtin.func(function() {
+        mod.processing.popStyle();
+    });
+
+    mod.pushStyle = new Sk.builtin.func(function() {
+        mod.processing.pushStyle();
+    });
+
     mod.popMatrix = new Sk.builtin.func(function() {
         mod.processing.popMatrix();
     });
